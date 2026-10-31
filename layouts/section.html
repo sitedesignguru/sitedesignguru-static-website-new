@@ -1,0 +1,48 @@
+{{ define "main" }}
+{{- $page := . -}}
+    <header class="pf-hero">
+        <div class="container">
+            <h1>{{ .Title }}</h1>
+            <p>{{ .Params.subtitle }}</p>
+        </div>
+    </header>
+
+    <section id="portfolio-page">
+        <div class="container">
+            {{ partial "spotlight.html" (dict "eyebrow" .Params.spotlight_eyebrow "button_text" .Params.spotlight_button) }}
+
+            <div class="pf-filters" role="group" aria-label="Filter projects">
+{{- range $i, $f := .Params.filters }}
+                <button type="button" class="pf-chip" data-filter="{{ $f.key }}" aria-pressed="{{ if eq $i 0 }}true{{ else }}false{{ end }}">{{ $f.label }}</button>
+{{- end }}
+            </div>
+
+            <div class="pf-grid">
+{{- range where .Pages "Params.featured" "!=" true }}
+                <a class="pf-card" href="#project-{{ .File.ContentBaseName }}" data-toggle="modal" data-type="{{ .Params.category }}">
+                    <div class="pf-browser">
+                        <div class="pf-frame">
+                            <img src="{{ partial "asset.html" .Params.preview }}" alt="{{ .Title }} website design" loading="lazy"/>
+                            <span class="pf-badge"><i class="fa fa-arrows-v"></i> {{ $page.Params.badge }}</span>
+                        </div>
+                    </div>
+                    <h3>{{ .Title }}</h3>
+                    {{ range .Params.tags }}<span class="pf-tag">{{ . }}</span>{{ end }}
+                </a>
+{{- end }}
+            </div>
+        </div>
+    </section>
+
+    <section class="pf-cta">
+        <div class="container">
+            <h2>{{ .Params.cta.heading }}</h2>
+            <p>{{ .Params.cta.text }}</p>
+            {{ partial "button.html" (dict "button" .Params.cta.button) }}
+        </div>
+    </section>
+{{ end }}
+
+{{ define "modals" }}
+{{- range .Pages }}{{ partial "project-modal.html" . }}{{ end }}
+{{ end }}

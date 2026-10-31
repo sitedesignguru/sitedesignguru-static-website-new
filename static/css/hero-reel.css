@@ -1,0 +1,145 @@
+/* ==========================================================================
+   Hero Reel — scroll-driven portfolio wall in the header
+   Everything below only kicks in once scripts/hero-reel.js adds
+   .hero-reel--ready, so without JS the original hero shows unchanged.
+   ========================================================================== */
+
+.hero-reel__stage,
+.hero-reel__shade {
+    display: none;
+}
+
+/* Scroll runway: the header is taller than the screen and the inner
+   panel sticks while the animation plays through. */
+.hero-reel--ready {
+    position: relative;
+    height: 280vh;
+    background: #1E2430;
+}
+
+.hero-reel--ready .hero-reel__sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
+    overflow: hidden;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+.hero-reel--ready .hero-reel__stage,
+.hero-reel--ready .hero-reel__shade {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.hero-reel--ready .hero-reel__stage {
+    -webkit-perspective: 1600px;
+    perspective: 1600px;
+}
+
+.hero-reel__wall {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150vw;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.hero-reel__col {
+    -webkit-flex: 1 1 0;
+    flex: 1 1 0;
+    margin: 0 1vw;
+    will-change: transform;
+}
+
+/* Each screenshot sits in a little browser window */
+.hero-reel__card {
+    margin: 0 0 2vw;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+}
+
+.hero-reel__card::before {
+    content: "";
+    display: block;
+    height: 16px;
+    background-color: #e9ecef;
+    background-image:
+        radial-gradient(circle, #F27D26 3px, transparent 3.5px),
+        radial-gradient(circle, #F5C41F 3px, transparent 3.5px),
+        radial-gradient(circle, #6C2D8F 3px, transparent 3.5px);
+    background-size: 12px 16px;
+    background-repeat: no-repeat;
+    background-position: 6px 0, 18px 0, 30px 0;
+}
+
+.hero-reel__card img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 500 / 288;
+    object-fit: cover;
+    object-position: top center;
+}
+
+.hero-reel--ready .hero-reel__shade {
+    background: radial-gradient(ellipse at center, rgba(30, 36, 48, 0.6) 0%, rgba(30, 36, 48, 0.95) 75%);
+}
+
+.hero-reel--ready .container {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-reel--ready .intro-text {
+    padding-top: 60px;
+    padding-bottom: 0;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.6);
+}
+
+/* Reduced motion: show the wall as a still backdrop, no pinning */
+.hero-reel--static {
+    height: auto;
+}
+
+.hero-reel--static .hero-reel__sticky {
+    position: relative;
+}
+
+@media (max-width: 767px) {
+    .hero-reel--ready {
+        height: 220vh;
+    }
+
+    .hero-reel__wall {
+        width: 190vw;
+    }
+
+    .hero-reel__card {
+        border-radius: 5px;
+    }
+
+    .hero-reel__card::before {
+        height: 10px;
+        background-size: 8px 10px;
+        background-position: 4px 0, 12px 0, 20px 0;
+    }
+}

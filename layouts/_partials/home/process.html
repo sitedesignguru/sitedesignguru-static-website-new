@@ -1,0 +1,84 @@
+{{- $p := .page.Params -}}
+    <section id="process" class="process">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>{{ .page.Title }}</h2>
+                </div>
+            </div>
+            <div class="process-grid">
+                <ol class="process-steps">
+{{- range $i, $s := $p.steps }}
+                    <li>
+                        <button type="button" class="process-step{{ if eq $i 0 }} is-active{{ end }}" data-step="{{ $i }}" data-address="{{ $s.url }}" aria-pressed="{{ if eq $i 0 }}true{{ else }}false{{ end }}">
+                            <span class="process-num">{{ printf "%02d" (add $i 1) }}</span>
+                            <span class="process-text">
+                                <strong>{{ $s.title }}</strong>
+                                <span>{{ $s.text }}</span>
+                            </span>
+                            <span class="process-bar" aria-hidden="true"></span>
+                        </button>
+                    </li>
+{{- end }}
+                </ol>
+
+                <div class="process-stage" aria-hidden="true">
+                    <div class="process-browser">
+                        <div class="process-chrome">
+                            <span></span><span></span><span></span>
+                            <div class="process-url">{{ (index $p.steps 0).url }}</div>
+                        </div>
+                        <div class="process-screen">
+{{- range $i, $s := $p.steps }}
+{{- $active := cond (eq $i 0) " is-active" "" }}
+{{- if eq $s.scene "talk" }}
+                            <div class="scene scene-talk{{ $active }}">
+{{- range $s.bubbles }}
+                                <div class="bubble bubble-{{ .from }}">{{ .text }}</div>
+{{- end }}
+                                <div class="talk-chips">{{ range $s.chips }}<span>{{ . }}</span>{{ end }}</div>
+                            </div>
+{{- else if eq $s.scene "review" }}
+                            <div class="scene scene-review{{ $active }}">
+                                <div class="doc">
+                                    <div class="doc-title"></div>
+                                    <div class="doc-line"></div>
+                                    <div class="doc-line doc-strike"></div>
+                                    <div class="doc-line doc-insert"></div>
+                                    <div class="doc-line short"></div>
+                                    <div class="doc-line"></div>
+                                    <div class="doc-line short"></div>
+                                </div>
+                                <ul class="seo-card">
+{{- range $s.checks }}
+                                    <li><i class="fa fa-check"></i> {{ . }}</li>
+{{- end }}
+                                </ul>
+                            </div>
+{{- else if eq $s.scene "boards" }}
+                            <div class="scene scene-boards{{ $active }}">
+                                <div class="board board-a"><i></i><b></b><b></b><b class="short"></b></div>
+                                <div class="board board-b"><i></i><b></b><b></b><b class="short"></b></div>
+                                <div class="board board-c"><i></i><b></b><b></b><b class="short"></b></div>
+                                <span class="board-pick"><i class="fa fa-check"></i></span>
+                                <i class="fa fa-mouse-pointer board-cursor"></i>
+                            </div>
+{{- else if eq $s.scene "build" }}
+                            <div class="scene scene-build{{ $active }}">
+                                <div class="build-nav"></div>
+                                <div class="build-hero"><b></b><b class="short"></b><i></i></div>
+                                <div class="build-cols"><span></span><span></span><span></span></div>
+                                <div class="build-live"><span class="live-dot"></span> {{ $s.label }}</div>
+                            </div>
+{{- else }}
+{{- errorf "Unknown process scene %q in content/homepage/process.md" $s.scene }}
+{{- end }}
+{{- end }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="process-close">{{ $p.closing }}</p>
+            {{ partial "testimonial.html" (dict "testimonial" $p.testimonial "class" "process-testimonial") }}
+        </div>
+    </section>

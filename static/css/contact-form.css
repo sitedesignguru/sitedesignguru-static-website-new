@@ -1,0 +1,186 @@
+/* ==========================================================================
+   Contact form — posts to mail/contact.php
+   ========================================================================== */
+
+#contact .col-lg-12.text-center > h3 {
+    color: #fff;
+    font-weight: 700;
+    margin-bottom: 50px;
+}
+
+#contact .col-lg-12.text-center > h3 a {
+    color: #F27D26;
+    white-space: nowrap;
+}
+
+.cf {
+    background: #fff;
+    border-radius: 4px;
+    padding: 50px;
+    color: #1E2430;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+}
+
+.cf-note {
+    margin: 0 0 20px;
+    font-size: 17px;
+    color: #555;
+}
+
+.cf-req {
+    color: #e74c3c;
+    margin-left: 2px;
+}
+
+.cf-grid {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: 0 -10px;
+}
+
+.cf-field {
+    display: block;
+    -webkit-flex: 0 0 calc(50% - 20px);
+    flex: 0 0 calc(50% - 20px);
+    margin: 0 10px 20px;
+    padding: 16px 20px 10px;
+    background: #f8f8f8;
+    border: 1px solid #ececec;
+    border-radius: 2px;
+    font-weight: normal;
+    cursor: text;
+    -webkit-transition: border-color .2s, background-color .2s;
+    transition: border-color .2s, background-color .2s;
+}
+
+.cf-wide {
+    -webkit-flex-basis: calc(100% - 20px);
+    flex-basis: calc(100% - 20px);
+}
+
+.cf-field:focus-within {
+    border-color: #6C2D8F;
+    background: #fff;
+}
+
+.cf-field.is-invalid {
+    border-color: #e74c3c;
+}
+
+.cf-label {
+    display: block;
+    margin: 0 0 4px;
+    font-size: 20px;
+    font-weight: 300;
+    color: #1E2430;
+}
+
+.cf-field input[type="text"],
+.cf-field input[type="email"],
+.cf-field input[type="tel"],
+.cf-field textarea {
+    display: block;
+    width: 100%;
+    padding: 4px 0;
+    border: 0;
+    background: transparent;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #1E2430;
+    outline: none;
+    box-shadow: none;
+}
+
+.cf-field textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.cf-file {
+    cursor: default;
+    padding-bottom: 16px;
+}
+
+.cf-file input[type="file"] {
+    margin: 10px 0 12px;
+    font-size: 17px;
+}
+
+.cf-help {
+    margin: 0;
+    font-size: 16px;
+    color: #555;
+}
+
+/* Honeypot: off-screen rather than display:none, which some bots skip */
+.cf-trap {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.cf-submit {
+    margin-top: 10px;
+}
+
+.cf-submit .fa {
+    margin-left: 8px;
+}
+
+.cf-submit[disabled] {
+    opacity: .6;
+    cursor: wait;
+}
+
+.cf-status {
+    margin-top: 20px;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.cf-status:empty {
+    display: none;
+}
+
+.cf-status.is-success {
+    color: #2e8b57;
+}
+
+.cf-status.is-error {
+    color: #e74c3c;
+}
+
+.cf-promise {
+    margin: 25px 0 0;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+@media (max-width: 767px) {
+    .cf {
+        padding: 30px 20px;
+    }
+
+    .cf-file {
+        min-width: 0;
+    }
+
+    .cf-file input[type="file"] {
+        max-width: 100%;
+    }
+
+    .cf-field {
+        -webkit-flex-basis: calc(100% - 20px);
+        flex-basis: calc(100% - 20px);
+    }
+
+    .cf-submit {
+        width: 100%;
+        white-space: normal;
+    }
+}

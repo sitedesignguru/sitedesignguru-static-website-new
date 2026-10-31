@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en-US" itemscope="" itemtype="http://schema.org/WebSite" prefix="og: http://ogp.me/ns#">
+<head>
+{{ partial "head.html" . }}
+</head>
+<body id="page-top"{{ if .IsHome }} class="index"{{ end }}>
+{{ partial "nav.html" . }}
+{{ block "main" . }}{{ end }}
+{{ partial "footer.html" . }}
+{{ block "modals" . }}{{ end }}
+    <script src="{{ "scripts/jquery.min.js" | relURL }}"></script>
+    <script src="{{ "scripts/bootstrap.min.js" | relURL }}"></script>
+    <script src="{{ "scripts/jquery.easing.min.js" | relURL }}"></script>
+    <script src="{{ "scripts/classie.min.js" | relURL }}"></script>
+    <script src="{{ "scripts/cbpAnimatedHeader.min.js" | relURL }}"></script>
+{{ block "scripts" . }}{{ end }}
+    <script src="{{ "scripts/portfolio-page.js" | relURL }}"></script>
+</body>
+</html>

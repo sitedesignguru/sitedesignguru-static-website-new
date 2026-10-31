@@ -1,0 +1,24 @@
+{{- /* dict "eyebrow" "lazy" and either "button" {text, link} or "button_text" (opens the project). */ -}}
+{{- $portfolio := site.GetPage "/portfolio" -}}
+{{- with index (where $portfolio.Pages "Params.featured" true) 0 -}}
+{{- $modal := printf "#project-%s" .File.ContentBaseName -}}
+<div class="pf-spot">
+    <a class="pf-spot-frame" href="{{ $modal }}" data-toggle="modal" aria-label="View the {{ .Title }} design">
+        <div class="pf-browser">
+            <div class="pf-frame">
+                <img src="{{ partial "asset.html" .Params.preview }}" alt="{{ .Title }} full homepage design"{{ if $.lazy }} loading="lazy"{{ end }}/>
+                <span class="pf-badge"><i class="fa fa-arrows-v"></i> {{ $portfolio.Params.badge }}</span>
+            </div>
+        </div>
+        <div class="pf-spot-hint">{{ $portfolio.Params.hover_hint }}</div>
+    </a>
+    <div>
+        <div class="pf-eyebrow">{{ $.eyebrow }}</div>
+        <h2>{{ .Title }}</h2>
+        <p>{{ .Params.summary }}</p>
+        {{ range .Params.tags }}<span class="pf-tag">{{ . }}</span>{{ end }}<br/>
+        {{ with $.button }}<a class="btn btn-xl" href="{{ partial "href.html" .link }}">{{ .text }}</a>
+        {{- else }}<a class="btn btn-xl" href="{{ $modal }}" data-toggle="modal">{{ $.button_text }}</a>{{ end }}
+    </div>
+</div>
+{{- end -}}

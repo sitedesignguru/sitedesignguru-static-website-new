@@ -1,0 +1,30 @@
+{{- $p := .page.Params -}}
+    <section class="service-chapter chapter-{{ $p.color }}">
+        <span class="chapter-num" aria-hidden="true">{{ printf "%02d" .chapter }}</span>
+        <div class="container">
+            <span class="chapter-tag">{{ $p.tag }}</span>
+            <h3>{{ .page.Title }}</h3>
+            <div class="chapter-top">
+                <div>
+                    {{ .page.Content }}
+                </div>
+                <div class="chapter-fit">
+                    <h4>{{ $p.fit_heading }}</h4>
+                    <ul>
+{{- range $p.fit }}
+                        <li>{{ . }}</li>
+{{- end }}
+                    </ul>
+                </div>
+            </div>
+            <div class="chapter-tiles">
+{{- range $p.tiles }}
+{{- $icon := resources.Get (printf "icons/%s.svg" .icon) }}
+{{- if not $icon }}{{ errorf "Icon not found: assets/icons/%s.svg" .icon }}{{ end }}
+                <div class="chapter-tile">
+{{ $icon.Content | safeHTML }}<h4>{{ .title }}</h4><p>{{ .text }}</p></div>
+{{- end }}
+            </div>
+            {{ partial "button.html" (dict "button" $p.button "home" true) }}
+        </div>
+    </section>

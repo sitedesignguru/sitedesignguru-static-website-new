@@ -1,0 +1,18 @@
+{{ define "main" }}
+{{- $chapter := 0 -}}
+{{- range (site.GetPage "/homepage").Pages -}}
+{{- if eq .Params.block "chapter" }}{{ $chapter = add $chapter 1 }}{{ end -}}
+{{ partial (printf "home/%s.html" .Params.block) (dict "page" . "chapter" $chapter) }}
+{{ end -}}
+{{ end }}
+
+{{ define "modals" }}
+{{- with index (where (site.GetPage "/portfolio").Pages "Params.featured" true) 0 }}{{ partial "project-modal.html" . }}{{ end }}
+{{ end }}
+
+{{ define "scripts" }}
+    <script src="{{ "scripts/contact-form.js" | relURL }}"></script>
+    <script src="{{ "scripts/agency.min.js" | relURL }}"></script>
+    <script src="{{ "scripts/hero-reel.js" | relURL }}"></script>
+    <script src="{{ "scripts/process.js" | relURL }}"></script>
+{{ end }}

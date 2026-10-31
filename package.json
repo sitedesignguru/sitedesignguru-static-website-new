@@ -1,0 +1,10 @@
+{
+  "name": "sitedesignguru-static-website",
+  "private": true,
+  "scripts": {
+    "dev": "dotenv -- hugo server"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^11.1.0"
+  }
+}

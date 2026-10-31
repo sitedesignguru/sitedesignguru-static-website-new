@@ -1,0 +1,9 @@
+{{- /* dict "testimonial" {name, color} "class" extra CSS class */ -}}
+{{- $t := site.GetPage (printf "/testimonials/%s" .testimonial.name) -}}
+{{- if not $t }}{{ errorf "Testimonial not found: content/testimonials/%s.md" .testimonial.name }}{{ end -}}
+<article class="testimonial-card testimonial-{{ .testimonial.color }} {{ .class }}">
+    <span class="testimonial-mark" aria-hidden="true">&ldquo;</span>
+    <div class="testimonial-stars" aria-label="{{ $t.Params.stars }} out of 5 stars">{{ strings.Repeat (int $t.Params.stars) "★" }}</div>
+    <blockquote>{{ partial "highlight.html" (dict "text" $t.RawContent "class" "testimonial-highlight") }}</blockquote>
+    <p class="testimonial-who"><img class="testimonial-photo" src="{{ partial "asset.html" $t.Params.photo }}" alt="" width="46" height="46" loading="lazy"/><span><b>{{ $t.Title }}</b>{{ with $t.Params.role }}<span>{{ . }}</span>{{ end }}</span></p>
+</article>

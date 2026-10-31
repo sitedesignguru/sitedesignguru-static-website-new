@@ -1,0 +1,5 @@
+{{- /* Turns a link from the content files into a URL. "#contact" is a home page section. */ -}}
+{{- $url := . -}}
+{{- if hasPrefix . "#" }}{{ $url = printf "%s%s" site.Home.RelPermalink . -}}
+{{- else if not (or (hasPrefix . "http:") (hasPrefix . "https:") (hasPrefix . "mailto:")) }}{{ $url = relURL . }}{{ end -}}
+{{- return $url -}}

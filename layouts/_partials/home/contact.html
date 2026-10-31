@@ -1,0 +1,55 @@
+{{- $p := .page.Params -}}
+{{- $key := os.Getenv "HUGO_WEB3FORMS_KEY" -}}
+{{- if not $key }}
+  {{- $problem := "The contact form can't send messages: HUGO_WEB3FORMS_KEY isn't set (see the README)" -}}
+  {{- if hugo.IsProduction }}{{ errorf $problem }}{{ else }}{{ warnf $problem }}{{ end -}}
+{{ end -}}
+    <section id="contact" class="halo halo-top-left">
+        <div class="container">
+            <div class="contact-layout">
+                <div class="contact-intro">
+                    <h2 class="contact-tagline">{{ .page.Title }}</h2>
+                    <h3>{{ $p.intro }}</h3>
+                    {{ partial "testimonial.html" (dict "testimonial" $p.testimonial "class" "contact-testimonial") }}
+                </div>
+                <div class="contact-form-col">
+                    <form id="contactForm" class="cf" method="post" action="https://api.web3forms.com/submit"
+                        {{- if $p.attachments }} enctype="multipart/form-data"{{ end }}
+                        data-sending="{{ $p.messages.sending }}" data-success="{{ $p.messages.success }}" data-error="{{ $p.messages.error }}" data-invalid="{{ $p.messages.invalid }}" novalidate>
+                        <input type="hidden" name="access_key" value="{{ $key }}"/>
+                        <input type="hidden" name="from_name" value="{{ $p.from_name }}"/>
+                        <p class="cf-note"><span class="cf-req">*</span> {{ $p.required_note }}</p>
+
+                        <div class="cf-grid">
+{{- range $p.fields }}
+                            <label class="cf-field{{ if eq .type "textarea" }} cf-wide{{ end }}">
+                                <span class="cf-label">{{ .label }}{{ if .required }}<span class="cf-req">*</span>{{ end }}</span>
+{{- if eq .type "textarea" }}
+                                <textarea name="{{ .name }}" rows="5" maxlength="{{ .maxlength }}"{{ if .required }} required{{ end }}></textarea>
+{{- else }}
+                                <input type="{{ .type }}" name="{{ .name }}"{{ with .autocomplete }} autocomplete="{{ . }}"{{ end }}{{ if eq .name "website" }} inputmode="url"{{ end }} maxlength="{{ .maxlength }}"{{ if .required }} required{{ end }}/>
+{{- end }}
+                            </label>
+{{- end }}
+{{- if $p.attachments }}
+                            <div class="cf-field cf-wide cf-file">
+                                <label class="cf-label" for="cf-attachment">{{ $p.attachment_label }}</label>
+                                <input type="file" id="cf-attachment" name="attachment" accept=".pdf,.jpg,.jpeg,.png,.docx"/>
+                                <p class="cf-help">{{ $p.attachment_help }}</p>
+                            </div>
+{{- end }}
+                        </div>
+
+                        <div class="cf-trap" aria-hidden="true">
+                            <label>Leave this empty <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"/></label>
+                        </div>
+                        <input type="hidden" name="started" value=""/>
+
+                        <button type="submit" class="btn btn-xl cf-submit">{{ $p.button }} <i class="fa fa-arrow-right"></i></button>
+                        <div class="cf-status" role="status" aria-live="polite"></div>
+                        <p class="cf-promise">{{ $p.promise }}</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>

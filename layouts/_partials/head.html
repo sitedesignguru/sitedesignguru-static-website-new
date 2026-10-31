@@ -1,0 +1,36 @@
+{{- $s := site.GetPage "/settings" -}}
+{{- $title := or .Params.seo_title .Title -}}
+{{- if and (not .IsHome) (not .Params.seo_title) }}{{ $title = printf "%s | %s" .Title $s.Params.site_name }}{{ end -}}
+{{- $description := or .Description site.Home.Description -}}
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" itemprop="description" content="{{ $description }}"/>
+    <meta name="author" content="{{ $s.Params.author }}"/>
+{{- with .Params.keywords }}
+    <meta name="keywords" itemprop="keywords" content="{{ . }}"/>
+{{- end }}
+    <meta property="og:url" content="{{ .Permalink }}">
+    <meta property="og:title" content="{{ or .Params.og_title $title }}">
+    <meta property="og:image" content="{{ $s.Params.share_image | absURL }}">
+    <meta property="og:description" content="{{ $description }}">
+    <title>{{ $title }}</title>
+    <link rel="canonical" href="{{ .Permalink }}"/>
+    <link href="{{ "css/bootstrap.min.css" | relURL }}" rel="stylesheet"/>
+    <link href="{{ "css/agency.css" | relURL }}" rel="stylesheet"/>
+{{- if .IsHome }}
+    <link href="{{ "css/hero-reel.css" | relURL }}" rel="stylesheet"/>
+    <link href="{{ "css/contact-form.css" | relURL }}" rel="stylesheet"/>
+{{- end }}
+    <link href="{{ "css/portfolio-page.css" | relURL }}" rel="stylesheet"/>
+    <link href="{{ "font-awesome/css/font-awesome.min.css" | relURL }}" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;600;700&family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Fraunces:ital@1&display=swap" rel="stylesheet"/>
+{{- with $s.Params.google_analytics_id }}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ . }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '{{ . }}');
+    </script>
+{{- end }}

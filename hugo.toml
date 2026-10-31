@@ -1,0 +1,14 @@
+# Technical settings only. Everything you'd want to edit is in content/.
+# GitHub Actions replaces baseURL with the address GitHub Pages reports.
+baseURL = "https://sitedesign.guru/"
+locale = "en-US"
+title = "Site Design Guru"
+disableKinds = ["taxonomy", "term", "rss"]
+enableRobotsTXT = true
+
+[markup.goldmark.parser]
+autoHeadingID = false
+wrapStandAloneImageWithinParagraph = false
+
+[markup.goldmark.extensions.typographer]
+disable = true

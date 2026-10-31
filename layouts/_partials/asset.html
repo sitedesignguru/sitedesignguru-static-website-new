@@ -1,0 +1,4 @@
+{{- /* URL of a file in static/. Stops the build if the file is missing. */ -}}
+{{- $path := strings.TrimPrefix "/" . -}}
+{{- if not (fileExists (printf "static/%s" $path)) }}{{ errorf "File not found: static/%s" $path }}{{ end -}}
+{{- return (relURL $path) -}}

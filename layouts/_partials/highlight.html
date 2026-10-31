@@ -1,0 +1,4 @@
+{{- /* Inline Markdown, with **bold** text styled by the given class. */ -}}
+{{- $html := .text | markdownify | string -}}
+{{- $html = replace $html "<strong>" (printf `<span class="%s">` .class) -}}
+{{- replace $html "</strong>" "</span>" | safeHTML -}}

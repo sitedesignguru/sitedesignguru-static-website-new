@@ -1,0 +1,13 @@
+{{- $p := .page.Params -}}
+    <section id="services" class="services-intro">
+        <div class="container">
+            <div class="services-intro-grid">
+                <div class="services-intro-text">
+                    <h2 class="chapter-tag">{{ .page.Title }}</h2>
+                    <h3 class="services-heading">{{ $p.heading }}</h3>
+                    <h3 class="text-muted">{{ $p.subheading }}</h3>
+                </div>
+                {{ partial "testimonial.html" (dict "testimonial" $p.testimonial "class" "intro-testimonial") }}
+            </div>
+        </div>
+    </section>

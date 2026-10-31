@@ -1,0 +1,330 @@
+/* ==========================================================================
+   portfolio.html — spotlight + filterable grid with full-page hover scroll
+   ========================================================================== */
+
+/* Page header */
+.pf-hero {
+    padding: 170px 0 80px;
+    text-align: center;
+    color: #fff;
+    background: #1E2430 url(../img/girl-computer-dark.jpg) center / cover;
+}
+
+.pf-hero h1 {
+    margin: 0;
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1;
+    text-transform: capitalize;
+}
+
+.pf-hero p {
+    margin: 16px 0 0;
+    font-size: 24px;
+    font-style: italic;
+}
+
+#portfolio-page {
+    padding: 4em 0;
+    background: #f7f7f7;
+}
+
+/* Browser window frame */
+.pf-browser {
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .06), 0 12px 30px rgba(30, 36, 48, .12);
+    -webkit-transition: -webkit-transform .3s ease, box-shadow .3s ease;
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.pf-browser::before {
+    content: "";
+    display: block;
+    height: 18px;
+    background-color: #eceef1;
+    background-image:
+        radial-gradient(circle, #F27D26 3.5px, transparent 4px),
+        radial-gradient(circle, #F5C41F 3.5px, transparent 4px),
+        radial-gradient(circle, #6C2D8F 3.5px, transparent 4px);
+    background-size: 14px 18px;
+    background-repeat: no-repeat;
+    background-position: 8px 0, 22px 0, 36px 0;
+}
+
+/* The scrolling viewport inside the frame. JS sets --shift (how far the
+   screenshot must move to show its bottom) and --dur (time to get there). */
+.pf-frame {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 500 / 288;
+    background: #eef0f2;
+}
+
+.pf-frame img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    -webkit-transition: -webkit-transform .9s ease;
+    transition: transform .9s ease;
+}
+
+.pf-card:hover .pf-frame img,
+.pf-card:focus-visible .pf-frame img,
+.pf-spot-frame:hover .pf-frame img {
+    -webkit-transform: translateY(var(--shift, 0));
+    transform: translateY(var(--shift, 0));
+    -webkit-transition-duration: var(--dur, .9s);
+    transition-duration: var(--dur, .9s);
+    -webkit-transition-timing-function: linear;
+    transition-timing-function: linear;
+}
+
+.pf-badge {
+    display: none;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    z-index: 1;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: rgba(30, 36, 48, .8);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    -webkit-transition: opacity .3s;
+    transition: opacity .3s;
+}
+
+.is-tall .pf-badge {
+    display: block;
+}
+
+.pf-card:hover .pf-badge,
+.pf-spot-frame:hover .pf-badge {
+    opacity: 0;
+}
+
+/* Spotlight */
+.pf-spot {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    margin: 0 0 90px;
+}
+
+.pf-spot-frame {
+    -webkit-flex: 0 0 56%;
+    flex: 0 0 56%;
+    margin-right: 50px;
+    cursor: pointer;
+}
+
+.pf-spot-frame .pf-frame {
+    aspect-ratio: auto;
+    height: 460px;
+}
+
+.pf-spot-hint {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 16px;
+    color: #777;
+}
+
+.pf-eyebrow {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #6C2D8F;
+}
+
+.pf-spot h2 {
+    margin: 10px 0 1rem;
+    font-size: 48px;
+    line-height: 1;
+    text-transform: capitalize;
+}
+
+.pf-spot p {
+    margin: 0 0 22px;
+    font-size: 20px;
+    line-height: 1.45;
+    color: #444;
+}
+
+.pf-spot .btn-xl {
+    margin-top: 24px;
+}
+
+/* Homepage: featured project section under the hero */
+.pf-featured {
+    background: #f7f7f7;
+}
+
+.pf-featured .pf-spot {
+    margin-bottom: 0;
+}
+
+/* Tags */
+.pf-tag {
+    display: inline-block;
+    margin: 0 4px 4px 0;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: #F3ECF7;
+    color: #6C2D8F;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+}
+
+/* Filters */
+.pf-filters {
+    margin: 0 0 40px;
+    text-align: center;
+}
+
+.pf-chip {
+    margin: 0 4px 8px;
+    padding: 8px 20px;
+    border: 1px solid #e0e3e6;
+    border-radius: 999px;
+    background: #fff;
+    color: #1E2430;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.pf-chip[aria-pressed="true"] {
+    border-color: #1E2430;
+    background: #1E2430;
+    color: #fff;
+}
+
+/* Grid */
+.pf-grid {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+}
+
+.pf-card {
+    display: block;
+    -webkit-flex: 0 0 calc(33.333% - 30px);
+    flex: 0 0 calc(33.333% - 30px);
+    margin: 0 15px 40px;
+    color: #1E2430;
+    text-decoration: none;
+}
+
+.pf-card:hover,
+.pf-card:focus {
+    color: #1E2430;
+    text-decoration: none;
+}
+
+.pf-card:hover .pf-browser {
+    -webkit-transform: translateY(-6px);
+    transform: translateY(-6px);
+    box-shadow: 0 22px 44px rgba(30, 36, 48, .2);
+}
+
+.pf-card[hidden] {
+    display: none;
+}
+
+.pf-card h3 {
+    margin: 16px 0 1rem;
+    font-size: 22px;
+    line-height: 1.15;
+    text-transform: capitalize;
+}
+
+/* Bottom call to action */
+.pf-cta {
+    padding: 4em 0;
+    text-align: center;
+    color: #fff;
+    background: #1E2430;
+}
+
+.pf-cta h2 {
+    margin: 0 0 1rem;
+    font-size: 40px;
+    text-transform: capitalize;
+}
+
+.pf-cta p {
+    margin: 0 0 30px;
+    font-size: 20px;
+    color: #b8c0cc;
+}
+
+@media (max-width: 991px) {
+    .pf-spot {
+        display: block;
+    }
+
+    .pf-spot-frame {
+        margin: 0 0 40px;
+    }
+
+    .pf-card {
+        -webkit-flex-basis: calc(50% - 30px);
+        flex-basis: calc(50% - 30px);
+    }
+}
+
+@media (max-width: 767px) {
+    .pf-hero {
+        padding: 130px 0 60px;
+    }
+
+    .pf-hero h1 {
+        font-size: 44px;
+    }
+
+
+    .pf-spot-frame .pf-frame {
+        height: 320px;
+    }
+
+    .pf-spot h2 {
+        font-size: 36px;
+    }
+
+    .pf-card {
+        -webkit-flex-basis: calc(100% - 30px);
+        flex-basis: calc(100% - 30px);
+    }
+}
+
+/* Touchscreens can't hover, so skip the hover-to-scroll hints there;
+   tapping a card opens its full design instead */
+@media (hover: none) {
+    .is-tall .pf-badge,
+    .pf-spot-hint {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pf-frame img,
+    .pf-browser {
+        -webkit-transition: none !important;
+        transition: none !important;
+    }
+}

@@ -1,0 +1,2 @@
+{{- /* dict "button" {text, link} "home" whether we're on the home page */ -}}
+<a href="{{ partial "href.html" .button.link }}" class="{{ if and .home (hasPrefix .button.link "#") }}page-scroll {{ end }}btn btn-xl">{{ .button.text }}</a>

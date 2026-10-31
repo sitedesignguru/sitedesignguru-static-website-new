@@ -1,0 +1,17 @@
+{{ define "main" }}
+    <header class="pf-hero">
+        <div class="container">
+            <h1>{{ .Title }}</h1>
+            {{ with .Description }}<p>{{ . }}</p>{{ end }}
+        </div>
+    </header>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    {{ .Content }}
+                </div>
+            </div>
+        </div>
+    </section>
+{{ end }}

@@ -1,0 +1,20 @@
+{{- $p := .page.Params -}}
+{{- $shots := slice -}}
+{{- range $p.shots }}{{ $shots = $shots | append (partial "asset.html" .) }}{{ end -}}
+    <header id="main" class="hero-reel">
+        <div class="hero-reel__sticky">
+            <div class="hero-reel__stage" aria-hidden="true" data-shots="{{ delimit $shots " " }}">
+                <div class="hero-reel__wall"></div>
+            </div>
+            <div class="hero-reel__shade"></div>
+            <div class="container">
+                <div class="intro-text">
+                    <h1 style="font-weight: normal;">{{ .page.Title }}</h1>
+                    <h2>{{ partial "highlight.html" (dict "text" $p.tagline "class" "text-sunset bold") }}</h2>
+                    <p>{{ $p.text }}</p>
+                    <br/>
+                    {{ partial "button.html" (dict "button" $p.button "home" true) }}
+                </div>
+            </div>
+        </div>
+    </header>

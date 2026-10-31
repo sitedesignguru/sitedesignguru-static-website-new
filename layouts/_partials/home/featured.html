@@ -1,0 +1,6 @@
+{{- $p := .page.Params -}}
+    <section id="featured" class="pf-featured halo halo-top-right">
+        <div class="container">
+            {{ partial "spotlight.html" (dict "eyebrow" $p.eyebrow "button" $p.button "lazy" true) }}
+        </div>
+    </section>

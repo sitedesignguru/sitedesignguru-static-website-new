@@ -1,0 +1,26 @@
+{{- $p := .page.Params -}}
+    <section id="diy" class="bg-light-gray">
+        <div class="container">
+            <div class="diy-grid">
+                <div class="diy-copy">
+                    <span class="diy-eyebrow">{{ $p.eyebrow }}</span>
+                    <h2>{{ .page.Title }}</h2>
+                    <p class="diy-lead">{{ $p.lead }}</p>
+                    {{ .page.Content }}
+                    <ul class="diy-ticks">
+{{- range $p.ticks }}
+                        <li>{{ . }}</li>
+{{- end }}
+                    </ul>
+                </div>
+                <div class="diy-roadmap">
+                    <h3><i class="fa fa-map-signs"></i> {{ $p.roadmap_heading }}</h3>
+                    <ol>
+{{- range $p.roadmap }}
+                        <li><h4>{{ .title }}</h4><p>{{ .text | markdownify }}</p></li>
+{{- end }}
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
