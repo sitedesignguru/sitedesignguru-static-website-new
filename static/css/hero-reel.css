@@ -9,18 +9,15 @@
     display: none;
 }
 
-/* Scroll runway: the header is taller than the screen and the inner
-   panel sticks while the animation plays through. */
+/* The header fills exactly one screen, and the animation plays as it
+   scrolls away, so the next section is one screen of scrolling down. */
 .hero-reel--ready {
     position: relative;
-    height: 280vh;
     background: #1E2430;
 }
 
 .hero-reel--ready .hero-reel__sticky {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
+    position: relative;
     height: 100vh;
     height: 100svh;
     overflow: hidden;
@@ -115,20 +112,7 @@
     text-shadow: 0 2px 18px rgba(0, 0, 0, 0.6);
 }
 
-/* Reduced motion: show the wall as a still backdrop, no pinning */
-.hero-reel--static {
-    height: auto;
-}
-
-.hero-reel--static .hero-reel__sticky {
-    position: relative;
-}
-
 @media (max-width: 767px) {
-    .hero-reel--ready {
-        height: 220vh;
-    }
-
     .hero-reel__wall {
         width: 190vw;
     }

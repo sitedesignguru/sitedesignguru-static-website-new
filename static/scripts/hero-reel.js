@@ -18,7 +18,7 @@
 
     var cols = [];
     var colCount = 0;
-    var target = 0;   // scroll progress, 0 → 1 across the pinned runway
+    var target = 0;   // scroll progress, 0 → 1 as the header leaves the screen
     var current = 0;  // eased progress actually drawn
     var ticking = false;
 
@@ -47,9 +47,7 @@
     }
 
     function measure() {
-        var runway = header.offsetHeight - window.innerHeight;
-        if (runway <= 0) { return 0; }
-        return clamp(-header.getBoundingClientRect().top / runway, 0, 1);
+        return clamp(-header.getBoundingClientRect().top / header.offsetHeight, 0, 1);
     }
 
     function render(p) {
@@ -88,7 +86,6 @@
     header.className += ' hero-reel--ready';
 
     if (reduceMotion) {
-        header.className += ' hero-reel--static';
         render(0.5);
         return;
     }
